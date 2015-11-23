@@ -1,19 +1,43 @@
 public class Raid
 {
+    private int numbOfDrives;
+    private DriverController driverController;
 
-    public void addData(int startIndex, byte[] data)
+    public Raid()
+    {
+    }
+
+    /**
+     * This method adds some data to the drives
+     *
+     * @param data
+     */
+    public void addData(byte[] data)
     {
 
     }
 
+    /**
+     * This method deletes a bunch of data
+     *
+     * @param startIndex
+     * @param length
+     */
     public void deleteData(int startIndex, int length)
     {
 
     }
 
+    /**
+     * This method initializes the drives
+     *
+     * @param numbOfDrives
+     * @param sizeOfDrives
+     */
     public void initialize(int numbOfDrives, int sizeOfDrives)
     {
-
+        this.numbOfDrives = numbOfDrives;
+        driverController = new DriverController(numbOfDrives, sizeOfDrives);
     }
 
     /**
@@ -25,17 +49,25 @@ public class Raid
         return "";
     }
 
-    public void addCorrupt(int startIndex, byte[] data)
-    {
-
-    }
-
+    /**
+     * This method returns some data
+     *
+     * @param startIndex
+     * @param length
+     * @return
+     */
     public byte[] getData(int startIndex, int length)
     {
         return new byte[]{0};
     }
 
-    private void updateParity(int startIndex, byte[]data)
+    /**
+     * This method returns the parity for some data
+     *
+     * @param startIndex
+     * @param data
+     */
+    private byte[] updateParity(int startIndex, byte[]data)
     {
 
     }
