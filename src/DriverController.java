@@ -2,62 +2,40 @@ public class DriverController
 {
     private Drive[] drives;
     private int driveSize;
-    // this int determines which drive gets the parity bit
-    private int currentParityDrive;
     private int[] parityDrives;
 
     public DriverController(int numbOfDrives, int driveSize)
     {
         drives = new Drive[numbOfDrives];
         this.driveSize = driveSize;
-        currentParityDrive = 0;
-        // this keeps track of which drive has the parity bit for each row
+        // this keeps track of which drive has the parity byte for each row
         parityDrives = new int[driveSize];
+        for(int k = 0; k < driveSize; k++)
+        {
+            parityDrives[k] = k % numbOfDrives;
+        }
     }
 
     /**
-     * This method adds a row of bytes with a parity bit to the drives
+     * This method replaces all the bytes in a row
      *
-     * @param row
+     * @param bytes
      * @param parity
+     * @param row
      */
-    public void writeRow(byte[] row, byte parity)
+    public void writeRow(byte[] bytes, byte parity, int row)
     {
 
     }
 
     /**
-     * This method adds a row of bytes at an index
+     * This method reads a byte row
      *
      * @param row
-     * @param parity
-     * @param index
-     */
-    public void writeRowAtIndex(byte[] row, byte parity, int index)
-    {
-
-    }
-
-    /**
-     * This method reads a byte row at an index
-     * which will have one less bit than the # of drives
-     * b/c of the parity bit
-     *
-     * @param index
      * @return
      */
-    public byte[] readRowAtIndex(int index)
+    public byte[] readRow(int row)
     {
-
-    }
-
-    /**
-     * This method deletes a row of bits
-     *
-     * @param index
-     */
-    public void deleteBit(int index)
-    {
-
+        return new byte[]{0};
     }
 }

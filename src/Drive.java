@@ -2,56 +2,32 @@
 public class Drive
 {
     byte[] bytes;
-    int currentBit;
-    
+
     public Drive(int size)
     {
-        currentBit = 0;
         bytes = new byte[size];
-    }
-
-
-    /**
-     * This method adds a bit to the end of the drive
-     *
-     * @param bit
-     */
-    public void writeNextByte(byte bit)
-    {
-
     }
 
     /**
      * This method changes a byte at an index
      *
      * @param index
-     * @param bit
+     * @param newByte
      */
-    public void writeByteAtIndex(int index, byte bit)
+    public void writeByte(int index, byte newByte)
     {
 
     }
 
 
     /**
-     * This method returns the bit at an index
+     * This method returns the byte at an index
      *
      * @param index
      * @return
      */
-    public byte getByteAtIndex(int index)
+    public byte readByte(int index)
     {
-
-    }
-
-
-    /**
-     * This method deletes a bit
-     *
-     * @param index
-     */
-    public void deleteBit(int index)
-    {
-
+        return 0;
     }
 }
