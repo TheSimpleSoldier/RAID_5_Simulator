@@ -14,18 +14,35 @@ public class DriverController
         {
             parityDrives[k] = k % numbOfDrives;
         }
+
+        for (int i = 0; i < drives.length; i++)
+        {
+            drives[i] = new Drive(driveSize);
+        }
     }
 
     /**
      * This method replaces all the bytes in a row
      *
-     * @param bytes
+     * @param data
      * @param parity
      * @param row
      */
-    public void writeRow(byte[] bytes, byte parity, int row)
+    public void writeRow(byte[] data, byte parity, int row)
     {
-
+        int dataIndex = 0;
+        for (int i = 0; i < this.drives.length; i++)
+        {
+            if (parityDrives[row] == i)
+            {
+                this.drives[i].writeByte(row, parity);
+            }
+            else
+            {
+                this.drives[i].writeByte(row, data[dataIndex]);
+                dataIndex++;
+            }
+        }
     }
 
     /**
@@ -36,6 +53,52 @@ public class DriverController
      */
     public byte[] readRow(int row)
     {
-        return new byte[]{0};
+        byte[] data = new byte[drives.length - 1];
+
+        int dataIndex = 0;
+
+        for (int i = 0; i < drives.length; i++)
+        {
+            if (parityDrives[row] == i);
+            else
+            {
+                data[dataIndex] = drives[i].readByte(row);
+                dataIndex++;
+            }
+        }
+
+        return data;
+    }
+
+    /**
+     * This method deletes a row
+     *
+     * @param row
+     */
+    public void deleteRow(int row)
+    {
+       for (int i = 0; i < drives.length; i++)
+       {
+           drives[i].deleteByte(row);
+       }
+    }
+
+    /**
+     * This method returns the parity for a row
+     *
+     * @param row
+     * @return
+     */
+    public byte getRowParity(int row)
+    {
+        return drives[parityDrives[row]].readByte(row);
+    }
+
+    public void print()
+    {
+        for (int i = 0; i < drives.length; i++)
+        {
+            drives[i].print();
+        }
     }
 }

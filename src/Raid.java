@@ -3,10 +3,6 @@ public class Raid
     private int numbOfDrives;
     private DriverController driverController;
 
-    public Raid()
-    {
-    }
-
     /**
      * This method initializes the drives
      *
@@ -44,7 +40,23 @@ public class Raid
      */
     public void writeData(int startIndex, byte[] data)
     {
+        byte[] newData = new byte[this.numbOfDrives - 1];
+        int numbOfRows = data.length / newData.length;
 
+        if (data.length % newData.length != 0)
+            numbOfRows++;
+
+        for (int i = 0; i < numbOfRows; i++)
+        {
+            for (int j = 0; j < newData.length && (i * newData.length + j) < data.length; j++)
+            {
+                newData[j] = data[i * newData.length + j];
+                System.out.print(newData[j]);
+            }
+
+            byte parity = updateParity(newData);
+            driverController.writeRow(newData, parity, ((startIndex / newData.length) + i));
+        }
     }
 
     /**
@@ -56,7 +68,15 @@ public class Raid
      */
     public byte[] readData(int startIndex, int length)
     {
-        return new byte[]{0};
+        byte[] data = new byte[length];
+        int size = (this.numbOfDrives - 1);
+
+        for (int i = 0; i < length; i++)
+        {
+            data[i] = this.driverController.readRow((startIndex + i) / size)[(startIndex + i) % size];
+        }
+
+        return data;
     }
 
     /**
@@ -77,6 +97,18 @@ public class Raid
      */
     private byte updateParity(byte[] data)
     {
-        return 0;
+        byte parity = data[0];
+
+        for (int i = 0; i < data.length; i++)
+        {
+            parity ^= data[i];
+        }
+
+        return parity;
+    }
+
+    public void print()
+    {
+        this.driverController.print();
     }
 }

@@ -16,7 +16,8 @@ public class Drive
      */
     public void writeByte(int index, byte newByte)
     {
-
+        // TODO: Write byte to file
+        bytes[index] = newByte;
     }
 
 
@@ -28,6 +29,28 @@ public class Drive
      */
     public byte readByte(int index)
     {
-        return 0;
+        // TODO: Read Byte from file
+        return bytes[index];
+    }
+
+    /**
+     * This method deletes a byte of data
+     *
+     * @param index
+     */
+    public void deleteByte(int index)
+    {
+
+    }
+
+    public void print()
+    {
+        System.out.println();
+
+        for (int i = 0; i < bytes.length; i++)
+        {
+            System.out.print(bytes[i]);
+        }
+        System.out.println();
     }
 }
