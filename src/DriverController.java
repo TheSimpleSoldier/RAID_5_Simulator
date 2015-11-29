@@ -101,4 +101,30 @@ public class DriverController
             drives[i].print();
         }
     }
+
+    /**
+     * This method checks the data and returns true if the data is good
+     * and false if it has been corrupted
+     *
+     * @return
+     */
+    public boolean checkData()
+    {
+        for (int i = 0; i < this.driveSize; i++)
+        {
+            byte parity = 0;
+            for (int j = 0; j < this.drives.length; j++)
+            {
+                parity ^= this.drives[j].readByte(i);
+            }
+
+            if (parity == 1)
+            {
+                System.out.println(i);
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

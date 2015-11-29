@@ -33,5 +33,7 @@ public class Main {
             System.out.print(readData[i]);
         }
         System.out.println();
+
+        raid.checkDrives();
     }
 }

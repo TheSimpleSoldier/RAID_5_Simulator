@@ -29,6 +29,14 @@ public class Raid
      */
     public String checkDrives()
     {
+        if (!this.driverController.checkData())
+        {
+            System.out.println("Data corrupted");
+        }
+        else
+        {
+            System.out.println("Data has not been corrupted");
+        }
         return "";
     }
 
