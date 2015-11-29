@@ -16,28 +16,22 @@ public class Raid
     }
 
     /**
-     * This function looks to see if a parity is wrong and notifies the manager
-     * if it is
-     */
-    public String checkData(int index)
-    {
-        return "";
-    }
-
-    /**
      * This function looks to see if a drive is missing and fixes it if it is
+     *
+     * It returns true if the data is good and false if it has been corrupted
      */
-    public String checkDrives()
+    public boolean checkDrives()
     {
         if (!this.driverController.checkData())
         {
             System.out.println("Data corrupted");
+            return false;
         }
         else
         {
             System.out.println("Data has not been corrupted");
+            return true;
         }
-        return "";
     }
 
     /**
@@ -107,7 +101,7 @@ public class Raid
     {
         byte parity = data[0];
 
-        for (int i = 0; i < data.length; i++)
+        for (int i = 1; i < data.length; i++)
         {
             parity ^= data[i];
         }
@@ -118,5 +112,16 @@ public class Raid
     public void print()
     {
         this.driverController.print();
+    }
+
+    public void deleteAndReplace(int drive)
+    {
+        this.driverController.deleteDrive(drive);
+        this.driverController.replaceDrive(drive);
+    }
+
+    public void flipABit(int index)
+    {
+        this.driverController.flipAByte(index);
     }
 }

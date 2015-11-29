@@ -2,13 +2,11 @@
 public class Drive
 {
     byte[] bytes;
-    private boolean driveErased;
     int length;
 
     public Drive(int size)
     {
         bytes = new byte[size];
-        driveErased = false;
         length = 0;
     }
 
@@ -62,15 +60,11 @@ public class Drive
         System.out.println();
     }
 
-    public void eraseDrive()
+    /**
+     * This method will flip a byte
+     */
+    public void flipAByte(int index)
     {
-        // TODO: Delete a drive
-        driveErased = true;
-    }
-
-    public boolean driveGone()
-    {
-        // TODO: figure out if drive has been deleted
-        return driveErased;
+        bytes[index] ^= 1;
     }
 }

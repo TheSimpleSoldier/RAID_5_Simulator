@@ -3,6 +3,7 @@ public class DriverController
     private Drive[] drives;
     private int driveSize;
     private int[] parityDrives;
+    private int deletedDrive;
 
     public DriverController(int numbOfDrives, int driveSize)
     {
@@ -19,6 +20,7 @@ public class DriverController
         {
             drives[i] = new Drive(driveSize);
         }
+        deletedDrive = -1;
     }
 
     /**
@@ -120,11 +122,43 @@ public class DriverController
 
             if (parity == 1)
             {
-                System.out.println(i);
                 return false;
             }
         }
 
         return true;
+    }
+
+    /**
+     * This method deletes a drive
+     *
+     * @param drive
+     */
+    public void deleteDrive(int drive)
+    {
+        this.drives[drive] = new Drive(this.driveSize);
+        this.deletedDrive = drive;
+    }
+
+    public void replaceDrive(int drive)
+    {
+        for (int i = 0; i < this.driveSize; i++)
+        {
+            byte newByte = 0;
+            for (int j = 0; j < this.drives.length; j++)
+            {
+                if (j != drive)
+                {
+                    newByte ^= this.drives[j].readByte(i);
+                }
+                this.drives[drive].writeByte(i, newByte);
+            }
+        }
+    }
+
+    public void flipAByte(int index)
+    {
+        int drive = index % this.drives.length;
+        this.drives[drive].flipAByte(index / this.drives.length);
     }
 }

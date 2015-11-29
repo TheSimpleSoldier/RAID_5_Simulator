@@ -35,5 +35,50 @@ public class Main {
         System.out.println();
 
         raid.checkDrives();
+
+        raid.deleteAndReplace(0);
+
+        System.out.println("Data after reconstructing drive 0");
+        readData = raid.readData(0, data.length);
+
+        for (int i = 0; i < readData.length; i++)
+        {
+            System.out.print(readData[i]);
+        }
+        System.out.println();
+
+        raid.deleteAndReplace(1);
+
+        System.out.println("Data after reconstructing drive 1");
+        readData = raid.readData(0, data.length);
+
+        for (int i = 0; i < readData.length; i++)
+        {
+            System.out.print(readData[i]);
+        }
+        System.out.println();
+
+        raid.deleteAndReplace(2);
+
+        System.out.println("Data after reconstructing drive 2");
+        readData = raid.readData(0, data.length);
+
+        for (int i = 0; i < readData.length; i++)
+        {
+            System.out.print(readData[i]);
+        }
+        System.out.println();
+
+        raid.flipABit(15);
+
+        System.out.println("Data after fliping a bit");
+        readData = raid.readData(0, data.length);
+
+        for (int i = 0; i < readData.length; i++)
+        {
+            System.out.print(readData[i]);
+        }
+        System.out.println();
+        raid.checkDrives();
     }
 }
