@@ -1,3 +1,5 @@
+import java.io.File;
+
 public class Raid
 {
     private int numbOfDrives;
@@ -9,10 +11,10 @@ public class Raid
      * @param numbOfDrives
      * @param sizeOfDrives
      */
-    public void initialize(int numbOfDrives, int sizeOfDrives)
+    public void initialize(int numbOfDrives, int sizeOfDrives, File baseDir)
     {
         this.numbOfDrives = numbOfDrives;
-        driverController = new DriverController(numbOfDrives, sizeOfDrives);
+        driverController = new DriverController(numbOfDrives, sizeOfDrives, baseDir);
     }
 
     /**

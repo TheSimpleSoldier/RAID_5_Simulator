@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -24,7 +25,7 @@ public class FileManager {
 
     public FileManager(int driveCount, int size, boolean debug) {
         raid5 = new Raid();
-        raid5.initialize(driveCount, size);
+        raid5.initialize(driveCount, size, new File("/tmp"));
         fileTable = new HashMap<>();
         segments = size;
         testRAID = new HashMap<>();

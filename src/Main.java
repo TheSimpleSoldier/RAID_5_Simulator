@@ -1,3 +1,5 @@
+import java.io.File;
+
 /**
  * Created by personal on 11/15/15.
  */
@@ -7,7 +9,7 @@ public class Main {
     public static void main(String[] args)
     {
         Raid raid = new Raid();
-        raid.initialize(3, 20);
+        raid.initialize(3, 20, new File("/tmp"));
 
         byte[] data = {0,1,1,1,1,0,0,1,0,1,1,0,0,0,0,1,1,1,1};
 

@@ -1,11 +1,14 @@
+import java.io.File;
+
 public class DriverController
 {
     private Drive[] drives;
     private int driveSize;
     private int[] parityDrives;
     private int deletedDrive;
+    private File baseDir;
 
-    public DriverController(int numbOfDrives, int driveSize)
+    public DriverController(int numbOfDrives, int driveSize, File baseDir)
     {
         drives = new Drive[numbOfDrives];
         this.driveSize = driveSize;
@@ -18,9 +21,10 @@ public class DriverController
 
         for (int i = 0; i < drives.length; i++)
         {
-            drives[i] = new Drive(driveSize);
+            drives[i] = new Drive(driveSize, new File(baseDir.getAbsolutePath() + "/" + i + ".txt"));
         }
         deletedDrive = -1;
+        this.baseDir = baseDir;
     }
 
     /**
@@ -136,7 +140,7 @@ public class DriverController
      */
     public void deleteDrive(int drive)
     {
-        this.drives[drive] = new Drive(this.driveSize);
+        this.drives[drive] = new Drive(this.driveSize, new File(baseDir.getAbsolutePath() + "/" + drive + ".txt"));
         this.deletedDrive = drive;
     }
 
