@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args)
     {
         
-        FileManager mgr = new FileManager(4, 32, true);
+        FileManager mgr = new FileManager(3, 32, true);
         mgr.run();
         
 //        Raid raid = new Raid();
