@@ -107,6 +107,10 @@ public class DriverController
             drives[i].print();
         }
     }
+    
+    public void print(int driveIndex) {
+        drives[driveIndex].print();
+    }
 
     /**
      * This method checks the data and returns true if the data is good
