@@ -75,8 +75,11 @@ public class FileManager {
                     length = 1;
                 } else if (!isData[i]) {
                     length += 1;
+                    if (bitsAdded + length == numberOfBits) {
+                        saveTo.put(index, length);
+                    }
                 } else if (length > 0) {
-                    if (bitsAdded + length > numberOfBits) {
+                    if (bitsAdded + length >= numberOfBits) {
                         saveTo.put(index, numberOfBits - bitsAdded);
                         break;
                     } else {
@@ -137,13 +140,25 @@ public class FileManager {
             fileList.add(name);
             
             int dataIndex = 0;
+            if (debug) {
+                System.out.println(" Adding bits at locations (index,numBits,returned_bits):");
+                System.out.print(" { ");
+            }
             for (int i = 0; i < free.length; i += 2) {
                 int nextIndex = dataIndex + free[i + 1];
-                raid5.writeData(free[i], getInRange(bytes, dataIndex, nextIndex));
+                byte[] bitsAsBytes = getInRange(bytes, dataIndex, nextIndex);
+                if (debug) {
+                    System.out.print("(" + free[i] + "," + bitsAsBytes.length + ",");
+                }
+                raid5.writeData(free[i], bitsAsBytes);
+                if (debug) {
+                    System.out.print("),");
+                }
                 dataIndex = nextIndex;
             }
-
+            
             if (debug) {
+                System.out.println(" }");
                 testRAID.put(name, bits);
             }
         }
@@ -165,7 +180,7 @@ public class FileManager {
         
         if (indices != null) {
             if (debug) {
-                System.out.println(" Retrieving bits (index,length,bits): ");
+                System.out.println(" Retrieving bits (index,length,returned_bits): ");
                 System.out.print(" {");
             }
             for (int i = 0; i < indices.length; i += 2) {
@@ -502,7 +517,7 @@ public class FileManager {
      */
     private byte[] getInRange(byte[] array, int a, int b) {
         byte[] output = new byte[b - a];
-
+//        System.out.println(output.length);
         for (int i = 0; i < output.length; i++) {
             output[i] = array[i + a];
         }
