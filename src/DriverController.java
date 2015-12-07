@@ -34,28 +34,24 @@ public class DriverController
      * @param parity
      * @param row
      */
-    public void writeRow(byte[] data, byte parity, int row, int offset)
+    public void writeRow(byte[] data, byte parity, int row)
     {
         int dataIndex = 0;
         int currentRow = row;
-        int currentColumn = offset;
 
-        for (int i = offset; i < this.drives.length + offset; i++)
+        System.out.println();
+        System.out.println();
+
+        for (int i = 0; i < this.drives.length; i++)
         {
-            currentColumn = (i % this.drives.length);
-            if (i > this.drives.length)
+            if (parityDrives[currentRow] == i)
             {
-                currentRow = row + 1;
-            }
-
-            if (parityDrives[currentRow] == currentColumn)
-            {
-                this.drives[currentColumn].writeByte(currentRow, parity);
+                this.drives[i].writeByte(currentRow, parity);
             }
             else
             {
-                this.drives[currentColumn].writeByte(currentRow, data[dataIndex]);
-                dataIndex++;
+                this.drives[i].writeByte(currentRow, data[dataIndex]);
+                dataIndex = (dataIndex + 1) % data.length;
             }
         }
     }
@@ -187,5 +183,10 @@ public class DriverController
     {
         int drive = index % this.drives.length;
         this.drives[drive].flipAByte(index / this.drives.length);
+    }
+
+    public int[] getParityDrives()
+    {
+        return parityDrives;
     }
 }

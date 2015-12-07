@@ -46,20 +46,59 @@ public class Raid
     {
         byte[] newData = new byte[this.numbOfDrives - 1];
         int numbOfRows = data.length / newData.length;
+        int i = 0;
+        int offset = startIndex % (this.numbOfDrives - 1);
+        int startRow = startIndex / (this.numbOfDrives - 1);
+        int startingUp = 0; //this.numbOfDrives - 1 - offset;
+        int index = 0;
 
-        if (data.length % newData.length != 0)
+        if (data.length % newData.length > 0)
             numbOfRows++;
 
-        for (int i = 0; i < numbOfRows; i++)
+        if (offset > 0)
         {
-            for (int j = 0; j < newData.length && (i * newData.length + j) < data.length; j++)
+            byte[] readData;
+            readData = driverController.readRow(startIndex / this.numbOfDrives);
+
+            if (driverController.getParityDrives()[startRow] < offset)
             {
-                newData[j] = data[i * newData.length + j];
+                for (int j = 0; j < offset - 1; j++)
+                {
+                    newData[j] = readData[j + 1];
+                    index = j;
+                }
+            }
+            else
+            {
+                for (int j = 0; j < offset; j++)
+                {
+                    newData[j] = readData[j];
+                    index = j;
+                }
+            }
+
+            for (int k = index+1; k < newData.length; k++)
+            {
+                newData[k] = data[k - index];
+            }
+
+            byte parity = updateParity(newData);
+            driverController.writeRow(newData, parity, startRow);
+
+            startRow++;
+        }
+
+
+        for (i = 0; i < numbOfRows; i++)
+        {
+            for (int j = 0; j < newData.length && (i * newData.length + j + index) < data.length; j++)
+            {
+                newData[j] = data[i * newData.length + j + index];
                 System.out.print(newData[j]);
             }
 
             byte parity = updateParity(newData);
-            driverController.writeRow(newData, parity, ((startIndex / newData.length) + i), (startIndex % newData.length));
+            driverController.writeRow(newData, parity, ((startRow) + i));
         }
     }
 
