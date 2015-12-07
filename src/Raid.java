@@ -57,24 +57,14 @@ public class Raid
         if (offset > 0)
         {
             byte[] readData;
-            readData = driverController.readRow(startIndex / this.numbOfDrives);
+            readData = driverController.readRow(startRow);
 
-            if (driverController.getParityDrives()[startRow] < offset)
+            for (int j = 0; j < offset; j++)
             {
-                for (int j = 0; j < offset - 1; j++)
-                {
-                    newData[j] = readData[j + 1];
-                    index = j;
-                }
+                newData[j] = readData[j];
+                index = j;
             }
-            else
-            {
-                for (int j = 0; j < offset; j++)
-                {
-                    newData[j] = readData[j];
-                    index = j;
-                }
-            }
+
 
             for (int k = index+1; k < newData.length; k++)
             {
