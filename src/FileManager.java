@@ -304,11 +304,11 @@ public class FileManager {
             System.out.println("Options:");
             System.out.println(" 1) Create file");
             System.out.println(" 2) Retrieve file");
-            System.out.println(" 3) Verify drive");
-            System.out.println(" 4) Corrupt file");
-            System.out.println(" 5) Modify file");
-            System.out.println(" 6) Delete file");
-//            System.out.println(" 7) Get data");
+            System.out.println(" 3) Modify file");
+            System.out.println(" 4) Delete file");
+            System.out.println(" 5) Verify drive");
+            System.out.println(" 6) Reconstruct drive");
+            System.out.println(" 7) Print drives");
             System.out.print(" Any other key to exit: ");
 
             // Get user input
@@ -345,6 +345,12 @@ public class FileManager {
                     break;
                 case 2: // Get file
                     System.out.println(" Retrieve file, enter 0 to cancel.");
+                    
+                    if (confirm(" Print all files?")) {
+                        for (String fileName : fileList) {
+                            
+                        }
+                    }
 
                     System.out.print(" File's name: ");
                     name = scan.nextLine();
@@ -371,32 +377,8 @@ public class FileManager {
                         }
                     }
                     break;
-                case 3: // Verify drive
-                    System.out.println(" Checking drives");
-
-                    checkDrives();
-                    System.out.println(" Drive check complete");
-                    break;
-                case 4: // Corrupt file
-                    System.out.println(" Corrupt file, enter 0 to cancel.");
-
-                    System.out.print(" File's name: ");
-                    name = scan.nextLine();
-                    name = name.trim();
-                    System.out.println();
-
-                    if (name.equals("0")) {
-                        break;
-                    }
-
-                    System.out.print(" Bit string: ");
-                    input = scan.nextLine();
-                    System.out.println();
-
-                    corruptFile(name, input);
-                    System.out.println(" Corrupted file " + name);
-                    break;
-                case 5: // Change file
+                    
+                case 3: // Change file
                     System.out.println(" Modify file, enter 0 to cancel.");
 
                     System.out.print(" File's name: ");
@@ -415,7 +397,8 @@ public class FileManager {
                     changeFile(name, input);
                     System.out.println(" Modified file " + name);
                     break;
-                case 6: // Delete file
+                    
+                case 4: // Delete file
                     System.out.println(" Delete file, enter 0 to cancel.");
 
                     System.out.print(" File's name: ");
@@ -429,6 +412,30 @@ public class FileManager {
 
                     deleteFile(name);
                     System.out.println(" Deleted file " + name);
+                    break;
+                    
+                case 5: // Verify drive
+                    System.out.println(" Checking drives");
+
+                    checkDrives();
+                    System.out.println(" Drive check complete");
+                    break;
+                    
+                case 6: // Print drives
+                    System.out.println(" Printing contents of all drives.");
+
+                    break;
+                case 7: // Reconstruct drive
+                    System.out.println(" Reconstruct drive, enter 0 to cancel.");
+
+                    System.out.print(" Drive number: ");
+                    name = scan.nextLine();
+                    name = name.trim();
+                    System.out.println();
+
+                    if (name.equals("0")) {
+                        break;
+                    }
                     break;
 //                case 7: // Get data
 //                    System.out.println(" Retrieve data, enter 0 to cancel.");
