@@ -59,7 +59,7 @@ public class Raid
             }
 
             byte parity = updateParity(newData);
-            driverController.writeRow(newData, parity, ((startIndex / newData.length) + i));
+            driverController.writeRow(newData, parity, ((startIndex / newData.length) + i), (startIndex % newData.length));
         }
     }
 
@@ -109,6 +109,14 @@ public class Raid
         }
 
         return parity;
+    }
+
+    /**
+     * This method replaces a drive
+     */
+    public void replaceADrive(int drive)
+    {
+        this.driverController.replaceDrive(drive);
     }
 
     public void print()
