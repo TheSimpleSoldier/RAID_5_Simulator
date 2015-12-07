@@ -111,6 +111,14 @@ public class Raid
         return parity;
     }
 
+    /**
+     * This method replaces a drive
+     */
+    public void replaceADrive(int drive)
+    {
+        this.driverController.replaceDrive(drive);
+    }
+
     public void print()
     {
         this.driverController.print();
