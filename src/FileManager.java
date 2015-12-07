@@ -30,7 +30,7 @@ public class FileManager {
         raid5 = new Raid();
         raid5.initialize(driveCount, bitsPerDrive, new File("/tmp"));
         fileTable = new HashMap<>();
-        freespace = bitsPerDrive*driveCount;
+        freespace = bitsPerDrive*(driveCount-1);
         fileList = new ArrayList<>();
         size = freespace;
                 
@@ -99,21 +99,21 @@ public class FileManager {
             }
             
             free = new Integer[saveTo.size() * 2];
-            if (debug) {
-                
-                System.out.println(" " + numberOfBits + " bits stored at points (index,numBits):");
-                System.out.print(" {");
-            }
+//            if (debug) {
+//                
+//                System.out.println(" " + numberOfBits + " bits stored at points (index,numBits):");
+//                System.out.print(" {");
+//            }
             for (int i = 0; i < saveTo.size() * 2; i += 2) {
                 free[i] = keys.get(i/2);
                 free[i+1] = saveTo.get(free[i]);
-                if (debug) {
-                    System.out.print("(" + free[i] + "," + free[i+1] + "),");
-                }
+//                if (debug) {
+//                    System.out.print("(" + free[i] + "," + free[i+1] + "),");
+//                }
             }
-            if (debug) {
-                System.out.println("}");
-            }
+//            if (debug) {
+//                System.out.println("}");
+//            }
         }
         
         return free;
@@ -141,7 +141,7 @@ public class FileManager {
             
             int dataIndex = 0;
             if (debug) {
-                System.out.println(" Adding bits at locations (index,numBits,returned_bits):");
+                System.out.println(" Adding bits at locations (index,length,bits):");
                 System.out.print(" { ");
             }
             for (int i = 0; i < free.length; i += 2) {
@@ -149,6 +149,9 @@ public class FileManager {
                 byte[] bitsAsBytes = getInRange(bytes, dataIndex, nextIndex);
                 if (debug) {
                     System.out.print("(" + free[i] + "," + bitsAsBytes.length + ",");
+                    for (int j = 0; j < bitsAsBytes.length; j++) {
+                        System.out.print(bitsAsBytes[j]);
+                    }
                 }
                 raid5.writeData(free[i], bitsAsBytes);
                 if (debug) {
@@ -180,7 +183,8 @@ public class FileManager {
         
         if (indices != null) {
             if (debug) {
-                System.out.println(" Retrieving bits (index,length,returned_bits): ");
+                System.out.println(" Retrieving bits (index,length,k"
+                        + "bits): ");
                 System.out.print(" {");
             }
             for (int i = 0; i < indices.length; i += 2) {

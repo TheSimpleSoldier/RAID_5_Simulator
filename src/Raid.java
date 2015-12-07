@@ -94,7 +94,7 @@ public class Raid
             for (int j = 0; j < newData.length && (i * newData.length + j + index) < data.length; j++)
             {
                 newData[j] = data[i * newData.length + j + index];
-                System.out.print(newData[j]);
+//                System.out.print(newData[j]);
             }
 
             byte parity = updateParity(newData);
