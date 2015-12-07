@@ -348,7 +348,17 @@ public class FileManager {
                     
                     if (confirm(" Print all files?")) {
                         for (String fileName : fileList) {
-                            
+                            byte[] contents = getFile(fileName);
+                            System.out.println(" Retrieved file " + fileName + ", contents: ");
+                            System.out.print(" ");
+                            for (int i = 0; i < contents.length; i++) {
+                                System.out.print(contents[i]);
+                            }
+                            System.out.println();
+                            if (debug) {
+                                System.out.println(" Expected:");
+                                System.out.println(" " + testRAID.get(fileName));
+                            }
                         }
                     }
 
@@ -420,6 +430,7 @@ public class FileManager {
                     checkDrives();
                     System.out.println(" Drive check complete");
                     break;
+                    
                 case 6: // Reconstruct drive
                     System.out.println(" Reconstruct drive, enter 0 to cancel.");
 
@@ -431,42 +442,20 @@ public class FileManager {
                     if (name.equals("0")) {
                         break;
                     }
+                    
+                    int drive;
+                    try {
+                        drive = Integer.parseInt(name);
+                        raid5.replaceADrive(drive);
+                    } catch (NumberFormatException e) {
+                        System.out.println(" Drive " + name + "does not exist.");
+                        break;
+                    }
                     break;
+                    
                 case 7:
                     print();
                     break;
-//                case 7: // Get data
-//                    System.out.println(" Retrieve data, enter 0 to cancel.");
-//
-//                    System.out.print(" Drive's name: ");
-//                    name = scan.nextLine();
-//                    name = name.trim();
-//                    System.out.println();
-//
-//                    if (name.equals("0")) {
-//                        break;
-//                    }
-//
-//                    int length,
-//                     index;
-//                    System.out.print(" Index: ");
-//                    try {
-//                        index = Integer.parseInt(scan.nextLine());
-//                    } catch (NumberFormatException e) {
-//                        break;
-//                    }
-//                    System.out.println();
-//                    System.out.print(" Length: ");
-//                    try {
-//                        length = Integer.parseInt(scan.nextLine());
-//                    } catch (NumberFormatException e) {
-//                        break;
-//                    }
-//                    System.out.println();
-//
-//                    getData(name, index, length);
-//                    System.out.println(" End data retrieveal");
-//                    break;
                 default:// Exit
                     System.out.println();
                     System.out.println("-----End program-----");
