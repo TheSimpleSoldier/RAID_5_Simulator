@@ -59,7 +59,7 @@ public class Raid
             }
 
             byte parity = updateParity(newData);
-            driverController.writeRow(newData, parity, ((startIndex / newData.length) + i));
+            driverController.writeRow(newData, parity, ((startIndex / newData.length) + i), (startIndex % newData.length));
         }
     }
 
