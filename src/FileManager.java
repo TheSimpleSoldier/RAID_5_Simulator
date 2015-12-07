@@ -420,7 +420,6 @@ public class FileManager {
                     checkDrives();
                     System.out.println(" Drive check complete");
                     break;
-                    
                 case 6: // Reconstruct drive
                     System.out.println(" Reconstruct drive, enter 0 to cancel.");
 
