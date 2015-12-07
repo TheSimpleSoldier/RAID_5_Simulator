@@ -437,16 +437,12 @@ public class FileManager {
                     break;
                     
                 case 6: // Reconstruct drive
-                    System.out.println(" Reconstruct drive, enter 0 to cancel.");
+                    System.out.println(" Reconstruct drive.");
 
                     System.out.print(" Drive number: ");
                     name = scan.nextLine();
                     name = name.trim();
                     System.out.println();
-
-                    if (name.equals("0")) {
-                        break;
-                    }
                     
                     int drive;
                     try {
