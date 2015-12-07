@@ -155,7 +155,7 @@ public class Raid
      */
     public void replaceADrive(int drive)
     {
-        this.driverController.replaceDrive(drive);
+        this.driverController.replaceDrive(drive - 1);
     }
 
     public void print()

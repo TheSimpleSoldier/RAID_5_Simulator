@@ -165,6 +165,8 @@ public class DriverController
 
     public void replaceDrive(int drive)
     {
+        System.out.println(drive);
+        drives[drive] = new Drive(driveSize, new File((drive) + ".txt"));
         for (int i = 0; i < this.driveSize; i++)
         {
             byte newByte = 0;
