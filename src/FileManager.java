@@ -360,6 +360,7 @@ public class FileManager {
                                 System.out.println(" " + testRAID.get(fileName));
                             }
                         }
+                        break;
                     }
 
                     System.out.print(" File's name: ");
@@ -486,16 +487,22 @@ public class FileManager {
         return output;
     }
 
+    /**
+     * Get confirmation from user through command line
+     * @param message message for the user
+     * @return user's boolean answer to the message
+     */
     private boolean confirm(String message) {
         boolean confirmation = false;
 
-        System.out.println(message + " (y/n)");
+        System.out.print(message + " (y/n) ");
         String input = scan.nextLine();
         input = input.toLowerCase();
         if (input.contains("y")) {
             confirmation = true;
         }
-
+        System.out.println();
+        
         return confirmation;
     }
 
