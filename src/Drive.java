@@ -81,6 +81,7 @@ public class Drive
         System.out.println();
     }
 
+
     /**
      * This method will flip a byte
      */
@@ -91,7 +92,7 @@ public class Drive
         setBytes(bytes);
     }
 
-    private byte[] getBytes()
+    public byte[] getBytes()
     {
         try
         {
