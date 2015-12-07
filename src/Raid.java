@@ -49,7 +49,6 @@ public class Raid
         int i = 0;
         int offset = startIndex % (this.numbOfDrives - 1);
         int startRow = startIndex / (this.numbOfDrives - 1);
-        int startingUp = 0; //this.numbOfDrives - 1 - offset;
         int index = 0;
 
         if (data.length % newData.length > 0)
@@ -79,7 +78,7 @@ public class Raid
 
             for (int k = index+1; k < newData.length; k++)
             {
-                newData[k] = data[k - index];
+                newData[k] = data[k - (index+1)];
             }
 
             byte parity = updateParity(newData);
