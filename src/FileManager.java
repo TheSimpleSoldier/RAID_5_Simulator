@@ -308,6 +308,7 @@ public class FileManager {
             System.out.println(" 4) Corrupt file");
             System.out.println(" 5) Modify file");
             System.out.println(" 6) Delete file");
+            System.out.println(" 7) Print drives");
 //            System.out.println(" 7) Get data");
             System.out.print(" Any other key to exit: ");
 
@@ -430,6 +431,9 @@ public class FileManager {
                     deleteFile(name);
                     System.out.println(" Deleted file " + name);
                     break;
+                case 7:
+                    print();
+                    break;
 //                case 7: // Get data
 //                    System.out.println(" Retrieve data, enter 0 to cancel.");
 //
@@ -476,7 +480,6 @@ public class FileManager {
      * Parse the value of a given bit string, with one bit per byte.
      *
      * @param bits
-     * @param bitPerByte
      * @return
      */
     private byte[] parseBits(String bits) {
@@ -554,5 +557,10 @@ public class FileManager {
             }
         }
         return output;
+    }
+
+    public void print()
+    {
+        raid5.print();
     }
 }

@@ -102,9 +102,19 @@ public class DriverController
 
     public void print()
     {
+        byte[][] data = new byte[drives.length][driveSize];
         for (int i = 0; i < drives.length; i++)
         {
-            drives[i].print();
+            data[i] = drives[i].getBytes();
+        }
+
+        for(int k = 0; k < driveSize; k++)
+        {
+            for(int a = 0; a < drives.length; a++)
+            {
+                System.out.print(data[a][k] + " ");
+            }
+            System.out.println();
         }
     }
     
