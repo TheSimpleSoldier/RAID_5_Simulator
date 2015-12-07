@@ -421,11 +421,7 @@ public class FileManager {
                     System.out.println(" Drive check complete");
                     break;
                     
-                case 6: // Print drives
-                    System.out.println(" Printing contents of all drives.");
-
-                    break;
-                case 7: // Reconstruct drive
+                case 6: // Reconstruct drive
                     System.out.println(" Reconstruct drive, enter 0 to cancel.");
 
                     System.out.print(" Drive number: ");
@@ -436,6 +432,9 @@ public class FileManager {
                     if (name.equals("0")) {
                         break;
                     }
+                    break;
+                case 7:
+                    print();
                     break;
 //                case 7: // Get data
 //                    System.out.println(" Retrieve data, enter 0 to cancel.");
@@ -483,7 +482,6 @@ public class FileManager {
      * Parse the value of a given bit string, with one bit per byte.
      *
      * @param bits
-     * @param bitPerByte
      * @return
      */
     private byte[] parseBits(String bits) {
@@ -561,5 +559,10 @@ public class FileManager {
             }
         }
         return output;
+    }
+
+    public void print()
+    {
+        raid5.print();
     }
 }
